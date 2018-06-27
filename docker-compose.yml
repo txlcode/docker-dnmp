@@ -4,9 +4,10 @@ services:
     image: nginx:alpine
     container_name: dnmp-nginx
     ports:
-      - "80:80"
+      - "8080:80"
       - "443:443"
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - ./www/:/var/www/html/:rw
       - ./conf/conf.d:/etc/nginx/conf.d/:ro
       - ./conf/nginx.conf:/etc/nginx/nginx.conf:ro
@@ -20,6 +21,7 @@ services:
     expose:
       - "9000"
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - ./www/:/var/www/html/:rw
       - ./conf/php.ini:/usr/local/etc/php/php.ini:ro
       - ./conf/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf:rw
@@ -33,10 +35,12 @@ services:
     image: docker.io/centos/mysql-57-centos7 
     container_name: dnmp-mysql
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - ./conf/my.cnf:/etc/my.cnf:ro
       - ./mysql/:/var/lib/mysql/data/:rw
+      - ./log/:/var/log/dnmp/:rw
     networks:
       - net-mysql
     environment:
