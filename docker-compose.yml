@@ -32,13 +32,13 @@ services:
       - net-redis
 
   mysql:
-    image: docker.io/centos/mysql-57-centos7 
+    image: docker.io/centos/mysql-56-centos7 
     container_name: dnmp-mysql
     ports:
       - "3307:3306"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/my.cnf:/etc/my.cnf:ro
+      #- ./conf/my.cnf:/etc/my.cnf:ro
       - ./mysql/:/var/lib/mysql/data/:rw
       - ./log/:/var/log/dnmp/:rw
     networks:
